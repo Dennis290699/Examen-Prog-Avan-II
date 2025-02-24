@@ -1,0 +1,78 @@
+package com.programacion.service;
+
+import com.programacion.db.*;
+import com.programacion.repository.*;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+
+public class DataInitializer {
+
+    @Inject
+    private InstructorRepository instructorRepository;
+
+    @Inject
+    private CourseRepository courseRepository;
+
+    @Inject
+    private StudentRepository studentRepository;
+
+    @Inject
+    private EnrollmentRepository enrollmentRepository;
+
+    @Inject
+    private AssignmentRepository assignmentRepository;
+
+    @Inject
+    private SubmissionRepository submissionRepository;
+
+    @Transactional
+    public void insertData() {
+        // ✅ 1. Crear Instructor
+        Instructor instructor = new Instructor();
+        instructor.setName("John Doe");
+        instructor.setEmail("john.doe@example.com");
+        instructor.setSpeciality("Mathematics");
+        instructorRepository.save(instructor);
+
+        // ✅ 2. Crear Curso y asignar al Instructor
+        Course course = new Course();
+        course.setTitle("Calculus 101");
+        course.setDescription("Introductory calculus course");
+        course.setStartDate("2024-03-01");
+        course.setEndDate("2024-06-30");
+        course.setInstructor(instructor);
+        courseRepository.save(course);
+
+        // ✅ 3. Crear Estudiante
+        Student student = new Student();
+        student.setName("Alice Smith");
+        student.setEmail("alice.smith@example.com");
+        student.setEnrollmentDate("2024-02-20");
+        studentRepository.save(student);
+
+        // ✅ 4. Inscribir Estudiante en el Curso
+        Enrollment enrollment = new Enrollment();
+        enrollment.setStudent(student);
+        enrollment.setCourse(course);
+        enrollment.setEnrollmentDate("2024-02-21");
+        enrollmentRepository.save(enrollment);
+
+        // ✅ 5. Crear Asignación para el Curso
+        Assignment assignment = new Assignment();
+        assignment.setTitle("Derivatives Homework");
+        assignment.setDueDate("2024-03-15");
+        assignment.setCourse(course);
+        assignmentRepository.save(assignment);
+
+        // ✅ 6. Crear Envío de Tarea por el Estudiante
+        Submission submission = new Submission();
+        submission.setAssignment(assignment);
+        submission.setStudent(student);
+        submission.setSubmissionDate("2024-03-14");
+        submission.setGrade("A");
+        submissionRepository.save(submission);
+
+        System.out.println("✅ Datos insertados correctamente");
+    }
+}
+

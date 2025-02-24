@@ -1,0 +1,23 @@
+package com.programacion;
+
+import com.programacion.service.concurrent.CourseTask;
+import com.programacion.service.interfaces.CourseService;
+import jakarta.enterprise.inject.se.SeContainer;
+import jakarta.enterprise.inject.se.SeContainerInitializer;
+
+public class MainGestionCursosConcurrent {
+    public static void main(String[] args) {
+        // Inicializar el contenedor de CDI
+        SeContainer container = SeContainerInitializer.newInstance().initialize();
+
+        // Inyectar el servicio CourseService
+        CourseService courseService = container.select(CourseService.class).get();
+
+        // Ejecutar las tareas en paralelo usando hilos
+        Thread thread1 = new Thread(new CourseTask("John Doe", courseService));
+        Thread thread2 = new Thread(new CourseTask("Sarah Johnson", courseService));
+
+        thread1.start();
+        thread2.start();
+    }
+}
