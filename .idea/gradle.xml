@@ -10,7 +10,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Buscaminas" />
+            <option value="$PROJECT_DIR$/Gestion-de-Biblioteca" />
             <option value="$PROJECT_DIR$/Gestion-de-cursos" />
+            <option value="$PROJECT_DIR$/Gestion-de-ventas" />
           </set>
         </option>
       </GradleProjectSettings>
